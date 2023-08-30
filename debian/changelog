@@ -1,0 +1,9 @@
+ros-humble-benchmark-utils (0.1.0-1jammy) jammy; urgency=high
+
+  * Fix Compiler Warning (#2 <https://github.com/MetroRobots/metrics_msgs/issues/2>)
+  * benchmark_msgs, benchmark_utils, collision_msgs
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 29 Aug 2023 04:00:00 -0000
+
+
