@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(benchmark_msgs)
+project(metro_benchmark_msgs)
 
 find_package(ament_cmake REQUIRED)
 find_package(builtin_interfaces REQUIRED)

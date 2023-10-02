@@ -1,4 +1,4 @@
-from benchmark_utils import BenchmarkPub
+from metro_benchmark_pub import BenchmarkPub
 import time
 
 

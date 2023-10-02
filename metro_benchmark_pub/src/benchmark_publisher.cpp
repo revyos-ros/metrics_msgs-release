@@ -34,21 +34,63 @@
 
 /* Author: David V. Lu!! */
 
-#include <benchmark_utils/benchmark_publisher.hpp>
-#include <gtest/gtest.h>
+#include <metro_benchmark_pub/benchmark_publisher.hpp>
 
-TEST(BenchmarkPublisher, BasicDelay)
+namespace metro_benchmark_pub
 {
-  using namespace std::chrono_literals;
-  benchmark_utils::BenchmarkPublisher bp(nullptr, "");
-  bp.tick("");
-  std::this_thread::sleep_for(10ns);
-  double elapsed = bp.tock();
-  ASSERT_GE(elapsed, 1e-8);
+const int NANOMOD = 1000000000;
+
+BenchmarkPublisher::BenchmarkPublisher(const rclcpp::Node::SharedPtr& node, const std::string& topic) : node_(node)
+{
+  if (node_)
+    pub_ = node_->create_publisher<metro_benchmark_msgs::msg::ComputeTime>(topic, 1);
 }
 
-int main(int argc, char** argv)
+void BenchmarkPublisher::tick(const std::string& name)
 {
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+  int c;
+  if (counter_.count(name) == 0)
+  {
+    c = 0;
+  }
+  else
+  {
+    c = counter_[name];
+  }
+  counter_[name] = c + 1;
+  std::string ident = name + "_" + std::to_string(c);
+  stack_.emplace_back(BenchmarkContext(name, ident));
 }
+
+double BenchmarkPublisher::tock(bool log)
+{
+  std::chrono::high_resolution_clock::time_point stop = std::chrono::high_resolution_clock::now();
+  BenchmarkContext& cxt = stack_.back();
+  std::chrono::nanoseconds duration_nano = stop - cxt.start;
+  long d_nano_i = duration_nano.count();
+  long s_nano_i = stop.time_since_epoch().count();
+
+  metro_benchmark_msgs::msg::ComputeTime msg;
+  msg.header.frame_id = cxt.name;
+  msg.header.stamp.sec = s_nano_i / NANOMOD;
+  msg.header.stamp.nanosec = s_nano_i % NANOMOD;
+  msg.duration.sec = d_nano_i / NANOMOD;
+  msg.duration.nanosec = d_nano_i % NANOMOD;
+  msg.id = cxt.id;
+
+  stack_.pop_back();
+  if (!stack_.empty())
+  {
+    msg.parent_id = stack_.back().id;
+  }
+  if (pub_)
+    pub_->publish(msg);
+  double duration_sec_f = d_nano_i / 1e9;
+  if (log && node_)
+  {
+    RCLCPP_INFO(node_->get_logger(), "%s time: %.4f", msg.header.frame_id.c_str(), duration_sec_f);
+  }
+
+  return duration_sec_f;
+}
+}  // namespace metro_benchmark_pub

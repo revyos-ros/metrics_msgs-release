@@ -1,4 +1,4 @@
-from benchmark_msgs.msg import ComputeTime
+from metro_benchmark_msgs.msg import ComputeTime
 import collections
 import math
 import time

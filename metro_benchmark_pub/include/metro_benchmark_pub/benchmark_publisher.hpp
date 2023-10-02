@@ -37,12 +37,12 @@
 #pragma once
 
 #include <rclcpp/rclcpp.hpp>
-#include <benchmark_msgs/msg/compute_time.hpp>
+#include <metro_benchmark_msgs/msg/compute_time.hpp>
 
 #include <chrono>
 #include <string>
 
-namespace benchmark_utils
+namespace metro_benchmark_pub
 {
 typedef struct BenchmarkContextS
 {
@@ -68,6 +68,6 @@ protected:
   std::list<BenchmarkContext> stack_;
   std::unordered_map<std::string, int> counter_;
   rclcpp::Node::SharedPtr node_;
-  rclcpp::Publisher<benchmark_msgs::msg::ComputeTime>::SharedPtr pub_;
+  rclcpp::Publisher<metro_benchmark_msgs::msg::ComputeTime>::SharedPtr pub_;
 };
-}  // namespace benchmark_utils
+}  // namespace metro_benchmark_pub
