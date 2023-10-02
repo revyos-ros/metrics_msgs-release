@@ -1,0 +1,15 @@
+ros-humble-collision-log-msgs (0.1.1-1bullseye) bullseye; urgency=high
+
+  * Rename collision_msgs -> collision_log_msgs (#3 <https://github.com/Metrorobots/metrics_msgs/issues/3>)
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 02 Oct 2023 04:00:00 -0000
+
+ros-humble-collision-log-msgs (0.1.0-1bullseye) bullseye; urgency=high
+
+  * benchmark_msgs, benchmark_utils, collision_msgs
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Tue, 29 Aug 2023 04:00:00 -0000
+
+
