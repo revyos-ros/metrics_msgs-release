@@ -1,0 +1,15 @@
+ros-humble-collision-log-msgs (0.1.1-1bookworm) bookworm; urgency=high
+
+  * Rename collision_msgs -> collision_log_msgs (#3 <https://github.com/Metrorobots/metrics_msgs/issues/3>)
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Sun, 01 Oct 2023 16:00:00 -0000
+
+ros-humble-collision-log-msgs (0.1.0-1bookworm) bookworm; urgency=high
+
+  * benchmark_msgs, benchmark_utils, collision_msgs
+  * Contributors: David V. Lu!!
+
+ -- David V. Lu!! <davidvlu@gmail.com>  Mon, 28 Aug 2023 16:00:00 -0000
+
+
